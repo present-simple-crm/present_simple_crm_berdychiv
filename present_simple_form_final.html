@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Запис до Present Simple</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#C0392B;
+  --red2:#E74C3C;
+  --red-light:#FDECEA;
+  --pink:#E8A0B0;
+  --pink-light:#FDF0F3;
+  --pink-mid:#F5C6D0;
+  --yellow:#E8D5A0;
+  --yellow-light:#FDF8EC;
+  --yellow-mid:#F0E4B8;
+  --bg:#FDF5F6;
+  --text:#2C1A1A;
+  --text2:#7A4A4A;
+  --text3:#B89090;
+  --border:#F0D0D5;
+}
+body{font-family:'Manrope',sans-serif;background:var(--bg);min-height:100vh;color:var(--text);}
+
+/* ─── HERO ─── */
+.hero{background:linear-gradient(135deg,var(--red) 0%,#9B2335 50%,#7A1828 100%);color:#fff;padding:40px 20px 60px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:30px;background:var(--bg);border-radius:30px 30px 0 0;}
+.hero-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.hero h1{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.hero p{font-size:14px;opacity:.8;max-width:320px;margin:0 auto;}
+.hero-badges{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.hbadge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;}
+
+/* ─── FORM CARD ─── */
+.wrap{max-width:500px;margin:-24px auto 40px;padding:0 16px;}
+.card{background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 8px 40px rgba(192,57,43,.10);border-top:3px solid var(--red);}
+
+/* ─── STEPS ─── */
+.steps{display:flex;align-items:center;gap:0;margin-bottom:28px;}
+.step{display:flex;align-items:center;gap:8px;flex:1;}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;transition:.3s;}
+.step-num.active{background:var(--red);color:#fff;}
+.step-num.done{background:var(--red);color:#fff;}
+.step-num.idle{background:var(--pink-light);color:var(--text3);}
+.step-label{font-size:11px;font-weight:600;color:#9C9A96;transition:.3s;}
+.step-label.active{color:var(--red);}
+.step-label.done{color:var(--red);}
+.step-divider{height:1px;flex:1;background:#E8E5E0;margin:0 8px;}
+
+/* ─── PANELS ─── */
+.panel{display:none;}
+.panel.show{display:block;}
+
+/* ─── SECTION TITLE ─── */
+.stitle{font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;padding-bottom:6px;border-bottom:2px solid var(--pink-mid);}
+
+/* ─── FIELDS ─── */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'Manrope',sans-serif;color:var(--text);background:var(--pink-light);transition:.15s;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(192,57,43,.08);}
+.field textarea{resize:vertical;min-height:70px;}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* ─── GROUP SELECTOR ─── */
+.group-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+.gcard{border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;transition:.15s;background:var(--yellow-light);}
+.gcard:hover{border-color:var(--red);}
+.gcard.sel{border-color:var(--red);background:var(--red);color:#fff;}
+.gcard h4{font-size:12px;font-weight:700;margin-bottom:2px;}
+.gcard p{font-size:10px;opacity:.6;}
+
+/* ─── LEVEL SELECTOR ─── */
+.level-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.lvl{padding:6px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;background:var(--yellow-light);color:var(--text2);}
+.lvl:hover{border-color:var(--red);color:var(--red);}
+.lvl.sel{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* ─── BUTTONS ─── */
+.btn-next{width:100%;padding:13px;background:linear-gradient(135deg,var(--red),#9B2335);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:.15s;margin-top:20px;box-shadow:0 4px 15px rgba(192,57,43,.3);}
+.btn-next:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 20px rgba(192,57,43,.4);}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;}
+.btn-back{background:none;border:none;font-size:13px;color:var(--text3);cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;padding:10px 0;display:block;margin-top:8px;width:100%;text-align:center;}
+.btn-back:hover{color:var(--red);}
+
+/* ─── SUMMARY ─── */
+.sum-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.sum-row:last-child{border-bottom:none;}
+.sum-label{color:var(--text2);}
+.sum-val{font-weight:600;}
+
+/* ─── SUCCESS ─── */
+.success-wrap{text-align:center;padding:20px 0;}
+.success-wrap .big-emoji{font-size:64px;display:block;margin-bottom:16px;}
+.success-wrap h2{font-size:22px;font-weight:800;margin-bottom:8px;}
+.success-wrap p{font-size:13px;color:#6B6860;line-height:1.6;margin-bottom:20px;}
+.success-info{background:var(--yellow-light);border:1px solid var(--yellow-mid);border-radius:12px;padding:14px 16px;text-align:left;margin-bottom:16px;}
+.success-info .rl{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--yellow-mid);}
+.success-info .rl:last-child{border-bottom:none;}
+.btn-tg{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:#2D6FD4;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;text-decoration:none;}
+.btn-new{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink-light);color:var(--red);border:1.5px solid var(--pink-mid);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;margin-top:8px;width:100%;justify-content:center;}
+
+/* ─── ERROR ─── */
+.err{font-size:11px;color:#D63B3B;margin-top:4px;display:none;}
+.field.invalid input,.field.invalid select{border-color:var(--red);}
+.field.invalid .err{display:block;}
+
+/* ─── PHONE FORMAT ─── */
+.phone-wrap{position:relative;}
+.phone-prefix{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--red);}
+.phone-wrap input{padding-left:42px;}
+
+/* ─── LOADING ─── */
+.loading{display:none;text-align:center;padding:30px;}
+.spinner{width:36px;height:36px;border:3px solid var(--pink-light);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── REQUIRED MARK ─── */
+.req{color:#D63B3B;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-emoji">🏫</span>
+  <h1>Present Simple</h1>
+  <p>Школа англійської мови у Бердичеві — запишіть дитину онлайн</p>
+  <div class="hero-badges">
+    <span class="hbadge">✓ Швидко — 2 хвилини</span>
+    <span class="hbadge">✓ Безкоштовно</span>
+    <span class="hbadge">✓ Ми передзвонимо</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="card">
+
+    <!-- STEPS -->
+    <div class="steps">
+      <div class="step">
+        <div class="step-num active" id="sn1">1</div>
+        <div class="step-label active" id="sl1">Дитина</div>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num idle" id="sn2">2</div>
+        <div class="step-label idle" id="sl2">Батьки</div>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-num idle" id="sn3">3</div>
+        <div class="step-label idle" id="sl3">Підтвердження</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: CHILD -->
+    <div class="panel show" id="p1">
+      <div class="stitle">Інформація про дитину</div>
+
+      <div class="field" id="f-name">
+        <label>Ім'я та прізвище дитини <span class="req">*</span></label>
+        <input type="text" id="child-name" placeholder="Наприклад: Іваненко Дарина">
+        <div class="err">Введіть ім'я дитини</div>
+      </div>
+
+      <div class="fr2">
+        <div class="field" id="f-age">
+          <label>Вік <span class="req">*</span></label>
+          <select id="child-age">
+            <option value="">Оберіть...</option>
+            <option>5 років</option>
+            <option>6 років</option>
+            <option>7 років</option>
+            <option>8 років</option>
+            <option>9 років</option>
+            <option>10 років</option>
+            <option>11 років</option>
+            <option>12 років</option>
+            <option>13 років</option>
+            <option>14 років</option>
+            <option>15 років</option>
+            <option>16+ років</option>
+          </select>
+          <div class="err">Оберіть вік</div>
+        </div>
+        <div class="field">
+          <label>Клас</label>
+          <select id="child-class">
+            <option value="">Оберіть...</option>
+            <option>Дошкільник</option>
+            <option>1 клас</option>
+            <option>2 клас</option>
+            <option>3 клас</option>
+            <option>4 клас</option>
+            <option>5 клас</option>
+            <option>6 клас</option>
+            <option>7 клас</option>
+            <option>8 клас</option>
+            <option>9 клас</option>
+            <option>10 клас</option>
+            <option>11 клас</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Рівень англійської <span class="req">*</span></label>
+        <div class="level-row" id="level-row">
+          <div class="lvl" onclick="selLevel(this,'Початківець (Starters)')">Початківець</div>
+          <div class="lvl" onclick="selLevel(this,'Елементарний (Elementary)')">Elementary</div>
+          <div class="lvl" onclick="selLevel(this,'Середній (Pre-Intermediate)')">Pre-Intermediate</div>
+          <div class="lvl" onclick="selLevel(this,'Вище середнього (Intermediate)')">Intermediate</div>
+          <div class="lvl" onclick="selLevel(this,'Не знаю')">Не знаю</div>
+        </div>
+        <input type="hidden" id="child-level">
+        <div class="err" id="level-err" style="display:none">Оберіть рівень</div>
+      </div>
+
+      <div class="field">
+        <label>Формат занять <span class="req">*</span></label>
+        <div class="group-grid">
+          <div class="gcard" onclick="selFormat(this,'Групові заняття')" id="fmt-group">
+            <h4>👥 Групові</h4>
+            <p>4–8 учнів у групі</p>
+          </div>
+          <div class="gcard" onclick="selFormat(this,'Індивідуальні заняття')" id="fmt-ind">
+            <h4>👤 Індивідуальні</h4>
+            <p>Заняття 1 на 1</p>
+          </div>
+        </div>
+        <input type="hidden" id="child-format">
+        <div class="err" id="format-err" style="display:none">Оберіть формат</div>
+      </div>
+
+      <div class="field">
+        <label>Зручний час занять</label>
+        <div class="level-row">
+          <div class="lvl" onclick="togTime(this)">Ранок (9–12)</div>
+          <div class="lvl" onclick="togTime(this)">День (12–16)</div>
+          <div class="lvl" onclick="togTime(this)">Вечір (16–19)</div>
+          <div class="lvl" onclick="togTime(this)">Вечір (19–21)</div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goStep2()">Далі →</button>
+    </div>
+
+    <!-- STEP 2: PARENT -->
+    <div class="panel" id="p2">
+      <div class="stitle">Контакти батьків</div>
+
+      <div class="field" id="f-par">
+        <label>Ваше ім'я <span class="req">*</span></label>
+        <input type="text" id="par-name" placeholder="Ваше ім'я">
+        <div class="err">Введіть ваше ім'я</div>
+      </div>
+
+      <div class="field" id="f-ph">
+        <label>Номер телефону <span class="req">*</span></label>
+        <div class="phone-wrap">
+          <span class="phone-prefix">+38</span>
+          <input type="tel" id="par-phone" placeholder="0XX XXX XX XX" maxlength="13" oninput="formatPhone(this)">
+        </div>
+        <div class="err">Введіть правильний номер телефону</div>
+      </div>
+
+      <div class="field">
+        <label>Як дізнались про нас?</label>
+        <select id="par-source">
+          <option value="">Оберіть...</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>Від знайомих / друзів</option>
+          <option>Google пошук</option>
+          <option>Побачили вивіску</option>
+          <option>Вже навчались</option>
+          <option>Інше</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Коментар або питання</label>
+        <textarea id="par-comment" placeholder="Напишіть якщо є особливі побажання або питання..."></textarea>
+      </div>
+
+      <div style="background:var(--yellow-light);border:1px solid var(--yellow-mid);border-radius:10px;padding:12px;font-size:12px;color:var(--text2);margin-top:4px;line-height:1.6">
+        🔒 Ваші дані захищені і використовуються лише для зв'язку з вами. Ми не передаємо їх третім особам.
+      </div>
+
+      <button class="btn-next" onclick="goStep3()">Переглянути заявку →</button>
+      <button class="btn-back" onclick="goBack(1)">← Назад</button>
+    </div>
+
+    <!-- STEP 3: CONFIRM -->
+    <div class="panel" id="p3">
+      <div class="stitle">Перевірте дані заявки</div>
+      <div id="summary"></div>
+      <button class="btn-next" id="submit-btn" onclick="submitForm()">✓ Надіслати заявку</button>
+      <button class="btn-back" onclick="goBack(2)">← Редагувати</button>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <div style="font-size:13px;color:#6B6860">Надсилаємо заявку...</div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="panel" id="p-success">
+      <div class="success-wrap">
+        <span class="big-emoji">🎉</span>
+        <h2>Заявку прийнято!</h2>
+        <p>Дякуємо! Наш адміністратор зв'яжеться з вами <b>протягом 2 годин</b> для підтвердження та узгодження розкладу.</p>
+        <div class="success-info" id="success-info"></div>
+        <a id="tg-link" href="#" class="btn-tg" style="width:100%;justify-content:center;margin-bottom:8px">
+          ✈️ Написати нам в Telegram
+        </a>
+        <button class="btn-new" onclick="resetForm()">+ Записати ще одну дитину</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:16px;font-size:11px;color:#9C9A96">
+    🏫 Present Simple · Школа англійської · Бердичів
+  </div>
+</div>
+
+<script>
+const GS_URL = localStorage.getItem('gs_url') || '';
+const TG_TOKEN = localStorage.getItem('tg_token') || '';
+const TG_ADMIN = localStorage.getItem('tg_admin') || '';
+
+let selectedTimes = [];
+
+function selLevel(el, val){
+  document.querySelectorAll('.lvl').forEach(l=>{
+    if(l.closest('#level-row'))l.classList.remove('sel');
+  });
+  el.classList.add('sel');
+  document.getElementById('child-level').value = val;
+}
+
+function selFormat(el, val){
+  document.getElementById('fmt-group').classList.remove('sel');
+  document.getElementById('fmt-ind').classList.remove('sel');
+  el.classList.add('sel');
+  document.getElementById('child-format').value = val;
+}
+
+function togTime(el){
+  el.classList.toggle('sel');
+  const t = el.textContent;
+  if(el.classList.contains('sel')){ if(!selectedTimes.includes(t)) selectedTimes.push(t); }
+  else { selectedTimes = selectedTimes.filter(x=>x!==t); }
+}
+
+function formatPhone(inp){
+  let v = inp.value.replace(/\D/g,'');
+  if(v.startsWith('38')) v = v.slice(2);
+  if(v.startsWith('0') && v.length > 10) v = v.slice(0,10);
+  inp.value = v;
+}
+
+function setStep(n){
+  [1,2,3].forEach(i=>{
+    const num = document.getElementById('sn'+i);
+    const lbl = document.getElementById('sl'+i);
+    num.className = 'step-num ' + (i<n?'done':i===n?'active':'idle');
+    lbl.className = 'step-label ' + (i<n?'done':i===n?'active':'idle');
+    num.textContent = i<n ? '✓' : i;
+  });
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  const panel = document.getElementById('p'+n);
+  if(panel) panel.classList.add('show');
+  document.getElementById('loading').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goStep2(){
+  let ok = true;
+  const name = document.getElementById('child-name').value.trim();
+  const age = document.getElementById('child-age').value;
+  const level = document.getElementById('child-level').value;
+  const format = document.getElementById('child-format').value;
+
+  const fn = document.getElementById('f-name');
+  fn.classList.toggle('invalid', !name);
+  const fa = document.getElementById('f-age');
+  fa.classList.toggle('invalid', !age);
+
+  if(!level){ document.getElementById('level-err').style.display='block'; ok=false; }
+  else { document.getElementById('level-err').style.display='none'; }
+  if(!format){ document.getElementById('format-err').style.display='block'; ok=false; }
+  else { document.getElementById('format-err').style.display='none'; }
+
+  if(!name||!age) ok=false;
+  if(ok) setStep(2);
+}
+
+function goStep3(){
+  const par = document.getElementById('par-name').value.trim();
+  const ph = document.getElementById('par-phone').value.trim();
+  const fp = document.getElementById('f-par');
+  const fph = document.getElementById('f-ph');
+  fp.classList.toggle('invalid', !par);
+  fph.classList.toggle('invalid', ph.length < 9);
+  if(!par || ph.length < 9) return;
+
+  // Build summary
+  const d = getData();
+  document.getElementById('summary').innerHTML = `
+    <div class="success-info" style="margin-bottom:16px">
+      <div class="rl"><span class="sum-label">👦 Дитина</span><span class="sum-val">${d.childName}</span></div>
+      <div class="rl"><span class="sum-label">🎂 Вік</span><span class="sum-val">${d.childAge}${d.childClass?' · '+d.childClass:''}</span></div>
+      <div class="rl"><span class="sum-label">📚 Рівень</span><span class="sum-val">${d.level}</span></div>
+      <div class="rl"><span class="sum-label">👥 Формат</span><span class="sum-val">${d.format}</span></div>
+      ${d.times?`<div class="rl"><span class="sum-label">⏰ Час</span><span class="sum-val">${d.times}</span></div>`:''}
+      <div class="rl"><span class="sum-label">👤 Батьки</span><span class="sum-val">${d.parName}</span></div>
+      <div class="rl"><span class="sum-label">📞 Телефон</span><span class="sum-val">+38${d.phone}</span></div>
+      ${d.source?`<div class="rl"><span class="sum-label">📢 Звідки</span><span class="sum-val">${d.source}</span></div>`:''}
+      ${d.comment?`<div class="rl"><span class="sum-label">💬 Коментар</span><span class="sum-val">${d.comment}</span></div>`:''}
+    </div>`;
+  setStep(3);
+}
+
+function goBack(n){ setStep(n); }
+
+function getData(){
+  return {
+    childName: document.getElementById('child-name').value.trim(),
+    childAge: document.getElementById('child-age').value,
+    childClass: document.getElementById('child-class').value,
+    level: document.getElementById('child-level').value,
+    format: document.getElementById('child-format').value,
+    times: selectedTimes.join(', '),
+    parName: document.getElementById('par-name').value.trim(),
+    phone: document.getElementById('par-phone').value.trim(),
+    source: document.getElementById('par-source').value,
+    comment: document.getElementById('par-comment').value.trim(),
+    dt: new Date().toISOString().split('T')[0]
+  };
+}
+
+async function submitForm(){
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  document.getElementById('p3').classList.remove('show');
+  document.getElementById('loading').style.display = 'block';
+
+  const d = getData();
+
+  // 1. Send to Google Sheets
+  try{
+    await fetch(GS_URL, {
+      method:'POST',
+      body: JSON.stringify({
+        action:'save',
+        sheet:'Заявки',
+        rows:[
+          ['Дата','Дитина','Вік','Клас','Рівень','Формат','Час','Батьки','Телефон','Звідки','Коментар','Статус'],
+          [d.dt, d.childName, d.childAge, d.childClass, d.level, d.format, d.times, d.parName, '+38'+d.phone, d.source, d.comment, 'Нова заявка']
+        ]
+      })
+    });
+  }catch(e){ console.warn('GS error:', e); }
+
+  // 2. Send Telegram notification to admin
+  const tgMsg = `🆕 <b>Нова заявка на навчання!</b>\n\n` +
+    `👦 Дитина: <b>${d.childName}</b>\n` +
+    `🎂 Вік: ${d.childAge}${d.childClass?' · '+d.childClass:''}\n` +
+    `📚 Рівень: ${d.level}\n` +
+    `👥 Формат: ${d.format}\n` +
+    (d.times?`⏰ Зручний час: ${d.times}\n`:'') +
+    `\n👤 Батьки: <b>${d.parName}</b>\n` +
+    `📞 Телефон: <b>+38${d.phone}</b>\n` +
+    (d.source?`📢 Звідки: ${d.source}\n`:'') +
+    (d.comment?`💬 Коментар: ${d.comment}\n`:'') +
+    `\n📅 Дата: ${d.dt}`;
+
+  try{
+    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({chat_id: TG_ADMIN, text: tgMsg, parse_mode:'HTML'})
+    });
+  }catch(e){ console.warn('TG error:', e); }
+
+  // Show success
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('p-success').classList.add('show');
+  document.getElementById('success-info').innerHTML = `
+    <div class="rl"><span>Дитина</span><span><b>${d.childName}</b></span></div>
+    <div class="rl"><span>Телефон</span><span><b>+38${d.phone}</b></span></div>
+    <div class="rl"><span>Формат</span><span>${d.format}</span></div>
+    <div class="rl"><span>Рівень</span><span>${d.level}</span></div>`;
+  document.getElementById('tg-link').href = `https://t.me/+38${d.phone}`;
+}
+
+function resetForm(){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  document.getElementById('child-name').value='';
+  document.getElementById('child-age').value='';
+  document.getElementById('child-class').value='';
+  document.getElementById('child-level').value='';
+  document.getElementById('child-format').value='';
+  document.getElementById('par-name').value='';
+  document.getElementById('par-phone').value='';
+  document.getElementById('par-source').value='';
+  document.getElementById('par-comment').value='';
+  document.querySelectorAll('.lvl.sel,.gcard.sel').forEach(el=>el.classList.remove('sel'));
+  selectedTimes=[];
+  setStep(1);
+}
+</script>
+</body>
+</html>
